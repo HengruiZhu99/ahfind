@@ -1,0 +1,9 @@
+STRING outfilename "filename for ahf_ihf diagnostics summary output" STEERABLE=RECOVER
+{
+ ""	:: "a valid filename"
+} "ahf_ihf_output.txt"
+
+STRING recent_ah_radius_max_filename "filename for just outputting latest ah_radius_max" STEERABLE=RECOVER
+{
+ ""	:: "a valid filename"
+} "ah_radius_max.txt"

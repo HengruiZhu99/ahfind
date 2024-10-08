@@ -1,0 +1,40 @@
+module blas
+  implicit none
+  
+  integer, parameter :: izero = 0
+  integer, parameter :: blas_integer_kind = kind(izero)
+  
+  interface gemm
+     SUBROUTINE SGEMM(TRANSA,TRANSB,M,N,K,ALPHA,A,LDA,B,LDB,BETA,C,LDC)
+       IMPLICIT NONE
+       REAL ALPHA,BETA
+       INTEGER   K,LDA,LDB,LDC,M,N
+       CHARACTER TRANSA,TRANSB
+       REAL A(LDA,*),B(LDB,*),C(LDC,*)
+     END SUBROUTINE SGEMM
+     
+     SUBROUTINE DGEMM(TRANSA,TRANSB,M,N,K,ALPHA,A,LDA,B,LDB,BETA,C,LDC)
+       IMPLICIT NONE
+       DOUBLE PRECISION ALPHA,BETA
+       INTEGER   K,LDA,LDB,LDC,M,N
+       CHARACTER TRANSA,TRANSB
+       DOUBLE PRECISION A(LDA,*),B(LDB,*),C(LDC,*)
+     END SUBROUTINE DGEMM
+     
+     SUBROUTINE CGEMM(TRANSA,TRANSB,M,N,K,ALPHA,A,LDA,B,LDB,BETA,C,LDC)
+       IMPLICIT NONE
+       COMPLEX ALPHA,BETA
+       INTEGER   K,LDA,LDB,LDC,M,N
+       CHARACTER TRANSA,TRANSB
+       COMPLEX A(LDA,*),B(LDB,*),C(LDC,*)
+     END SUBROUTINE CGEMM
+     
+     SUBROUTINE ZGEMM(TRANSA,TRANSB,M,N,K,ALPHA,A,LDA,B,LDB,BETA,C,LDC)
+       COMPLEX*16 ALPHA,BETA
+       INTEGER   K,LDA,LDB,LDC,M,N
+       CHARACTER TRANSA,TRANSB
+       COMPLEX*16 A(LDA,*),B(LDB,*),C(LDC,*)
+     END SUBROUTINE ZGEMM
+  end interface gemm
+  
+end module blas

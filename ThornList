@@ -1,0 +1,32 @@
+BlackHolesatHome/readBHaHdata
+
+EinsteinAnalysis/AHFinderDirect
+EinsteinAnalysis/QuasiLocalMeasures
+
+CactusNumerical/SphericalSurface # needed by ahfinderdirect
+EinsteinBase/ADMBase             # needed by ahfinderdirect
+CactusBase/CartGrid3D            # needed by ahfinderdirect; provides GRID
+CactusBase/CoordBase             # needed by ahfinderdirect; provides COORDBASE
+CactusNumerical/SpaceMask        # needed by ahfinderdirect; provides SPACEMASK
+CactusBase/IOBasic
+CactusBase/IOUtil
+CactusBase/IOASCII
+
+EinsteinBase/TmunuBase           # needed by QuasiLocalMeasures
+EinsteinUtils/TGRtensor          # needed by QuasiLocalMeasures
+EinsteinBase/StaticConformal     # needed by QuasiLocalMeasures
+CactusBase/Boundary              # needed by QuasiLocalMeasures
+ExternalLibraries/LAPACK         # needed by QuasiLocalMeasures
+ExternalLibraries/BLAS           # needed by QuasiLocalMeasures
+CactusBase/Fortran               # needed by QuasiLocalMeasures
+
+CactusNumerical/MoL              # needed by ADMBase
+CactusPUGH/PUGH                  # needed by CartGrid3D
+CactusPUGH/PUGHSlab              # needed by IOASCII
+CactusBase/SymBase               # needed by Boundary,CartGrid3D
+
+Numerical/AEILocalInterp         # needed by ahfinderdirect to be functional
+CactusPUGH/PUGHReduce            # needed by SphericalSurface; otherwise CCTK_ReductionArrayHandle: No handle found for array reduction operator 'minimum'
+CactusPUGH/PUGHInterp            # needed by ahfinderdirect; otherwise No driver thorn activated to provide an interpolation routine for grid arrays
+
+CactusNumerical/LocalReduce      # needed by IOBasic

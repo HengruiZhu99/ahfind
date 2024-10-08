@@ -1,0 +1,14 @@
+mkdir -p arrangements/ExternalLibraries/LAPACK/dist
+mkdir -p arrangements/ExternalLibraries/BLAS/dist
+wget -nc https://github.com/Reference-LAPACK/lapack/archive/refs/tags/v3.9.0.tar.gz
+cd arrangements/ExternalLibraries/LAPACK/dist/
+ln -s ../../../../v3.9.0.tar.gz lapack-3.9.0.tgz
+cd ../../../../
+cd arrangements/ExternalLibraries/BLAS/dist/
+ln -s ../../../../v3.9.0.tar.gz lapack-3.9.0.tgz
+cd ../../../../
+mkdir -p configs
+yes | make einsteintoolkitanalysis-config options=ubuntu-gcc-buildlapackblas.cfg
+
+cp ThornList configs/einsteintoolkitanalysis
+

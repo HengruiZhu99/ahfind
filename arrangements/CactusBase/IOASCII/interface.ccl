@@ -1,0 +1,55 @@
+# Interface definition for thorn IOASCII
+# $Header$
+
+implements: IOASCII
+### FIXME: need private inheritance in order to be implementation-compatible
+###        with CarpetIOASCII
+#inherits:   IO
+
+CCTK_INT FUNCTION \
+  Hyperslab_GetList (CCTK_POINTER_TO_CONST IN cctkGH, \
+                     CCTK_INT IN mapping_handle, \
+                     CCTK_INT IN num_arrays, \
+                     CCTK_INT ARRAY IN procs, \
+                     CCTK_INT ARRAY IN vindices, \
+                     CCTK_INT ARRAY IN timelevels, \
+                     CCTK_INT ARRAY IN hdatatypes, \
+                     CCTK_POINTER ARRAY IN hdata, \
+                     CCTK_INT ARRAY OUT retvals)
+
+CCTK_INT FUNCTION \
+  Hyperslab_GlobalMappingByIndex (CCTK_POINTER_TO_CONST IN cctkGH, \
+                                  CCTK_INT IN vindex, \
+                                  CCTK_INT IN hdim, \
+                                  CCTK_INT ARRAY IN direction, \
+                                  CCTK_INT ARRAY IN origin, \
+                                  CCTK_INT ARRAY IN extent, \
+                                  CCTK_INT ARRAY IN downsample, \
+                                  CCTK_INT IN table_handle, \
+                                  CCTK_INT CCTK_FPOINTER IN \
+                                    conversion_fn (CCTK_INT IN nelems, \
+                                                   CCTK_INT IN src_stride, \
+                                                   CCTK_INT IN dst_stride, \
+                                                   CCTK_INT IN src_type, \
+                                                   CCTK_INT IN dst_type, \
+                                                   CCTK_POINTER_TO_CONST IN from, \
+                                                   CCTK_POINTER IN to), \
+                                  CCTK_INT ARRAY OUT hsize)
+
+CCTK_INT FUNCTION Hyperslab_FreeMapping (CCTK_INT IN mapping_handle)
+
+
+REQUIRES FUNCTION Hyperslab_GetList
+REQUIRES FUNCTION Hyperslab_GlobalMappingByIndex
+REQUIRES FUNCTION Hyperslab_FreeMapping
+
+CCTK_INT FUNCTION IO_TruncateOutputFiles \
+  (CCTK_POINTER_TO_CONST IN GH)
+
+REQUIRES FUNCTION IO_TruncateOutputFiles
+
+CCTK_INT FUNCTION Coord_GroupSystem  \
+  (CCTK_POINTER_TO_CONST IN GH,      \
+   CCTK_STRING IN groupname)
+
+USES FUNCTION Coord_GroupSystem

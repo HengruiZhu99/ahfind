@@ -1,0 +1,8 @@
+# Configuration definitions for thorn PUGHInterp
+# $Header$
+
+REQUIRES PUGH
+
+OPTIONAL MPI
+{
+}

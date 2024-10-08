@@ -1,0 +1,7 @@
+# Schedule definitions for thorn PUGHInterp
+# $Header$
+
+schedule PUGHInterp_Startup at STARTUP after Driver_Startup
+{
+  LANG:C
+} "PUGHInterp startup routine"

@@ -1,0 +1,22 @@
+Cactus Code Thorn PUGHSlab
+Author(s)    : Gabrielle Allen
+               Tom Goodale
+               Thomas Radke
+Maintainer(s): Cactus team
+Licence      : LGPL
+--------------------------------------------------------------------------
+
+1. Purpose
+
+This thorn implements the following parts of the CCTK hyperslab API:
+
+ * the definition of local and global hyperslab mappings based on grid indices
+ * the extraction of local and global hyperslabs as specified by such
+   mappings
+
+
+2. Additional information
+
+The complete specification of the CCTK Hyperslab API and the description of
+PUGHSlab's implementation of it are described in the corresponding ThornGuide
+chapter for PUGHSlab (see file doc/documentation.tex).

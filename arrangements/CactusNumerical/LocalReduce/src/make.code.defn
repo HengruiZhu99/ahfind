@@ -1,0 +1,11 @@
+# Main make.code.defn file for thorn LocalReduce
+# $Header$
+
+# Source files in this directory
+
+SRCS = Startup.c Reduction.c ReductionAvg.c  AvgFunctions.c ReductionMax.c MaxFunctions.c  ReductionMin.c MinFunctions.c  ReductionCount.c CountFunctions.c ReductionSum.c SumFunctions.c ReductionNorm1.c Norm1Functions.c ReductionNorm2.c Norm2Functions.c ReductionNorm3.c Norm3Functions.c ReductionNorm4.c Norm4Functions.c ReductionNormInf.c NormInfFunctions.c
+
+#SRCS = Startup.c Reduction.c ReductionAvg.c  AvgFunctions.c 
+
+# Subdirectories containing source files
+SUBDIRS = 

@@ -1,0 +1,6 @@
+# Configuration definition for thorn IOASCII
+# $Header$
+
+REQUIRES IOUtil
+
+REQUIRES THORNS: IOUtil

@@ -1,0 +1,9 @@
+# Main make.code.defn file for thorn IOBasic
+# $Header$
+
+# Source files in this directory
+SRCS = Startup.c \
+       OutputScalar.c \
+       OutputInfo.c \
+       WriteScalar.c \
+       WriteInfo.c 

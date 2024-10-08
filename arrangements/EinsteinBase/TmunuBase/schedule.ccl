@@ -1,0 +1,72 @@
+# Schedule definitions for thorn TmunuBase
+
+STORAGE: stress_energy_state
+
+
+
+# Initialise stuff
+
+SCHEDULE TmunuBase_SetStressEnergyState AT Wragh BEFORE MoL_Register
+{
+  LANG: Fortran
+  OPTIONS: global
+  WRITES: TmunuBase::stress_energy_state(everywhere)
+} "Set the stress_energy_state variable"
+
+SCHEDULE TmunuBase_ParamCheck AT ParamCheck
+{
+  LANG: C
+  OPTIONS: global
+} "Check that no deprecated parameters are used."
+
+
+# Do nothing unless storage is requested
+
+if (stress_energy_storage)
+{
+
+  # Storage management
+  
+  if (timelevels == 1)
+  {
+    STORAGE: stress_energy_scalar[1]
+    STORAGE: stress_energy_vector[1]
+    STORAGE: stress_energy_tensor[1]
+  }
+  else if (timelevels == 2)
+  {
+    STORAGE: stress_energy_scalar[2]
+    STORAGE: stress_energy_vector[2]
+    STORAGE: stress_energy_tensor[2]
+  }
+  else if (timelevels == 3)
+  {
+    STORAGE: stress_energy_scalar[3]
+    STORAGE: stress_energy_vector[3]
+    STORAGE: stress_energy_tensor[3]
+  }
+  
+  
+  
+  if (stress_energy_at_RHS)
+  {
+    SCHEDULE GROUP SetTmunu IN MoL_PostStep AFTER ADMBase_SetADMVars
+    {
+    } "Group for calculating the stress-energy tensor"
+  }
+  
+  
+  
+  SCHEDULE TmunuBase_ZeroTmunu IN SetTmunu
+  {
+    LANG: Fortran
+    WRITES: TMUNUBASE::stress_energy_scalar(everywhere)
+    WRITES: TMUNUBASE::stress_energy_vector(everywhere)
+    WRITES: TMUNUBASE::stress_energy_tensor(everywhere)
+  } "Initialise the stress-energy tensor to zero"
+  
+  SCHEDULE GROUP AddToTmunu IN SetTmunu AFTER (TmunuBase_SetTmunu,TmunuBase_ZeroTmunu)
+  {
+  } "Add to the stress-energy tensor here"
+  
+} # if stress_energy_storage

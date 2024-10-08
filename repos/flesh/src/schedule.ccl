@@ -1,0 +1,97 @@
+# Schedule Bins
+
+schedule GROUP CCTK_RECOVER_PARAMETERS
+{
+} "Used by thorns with relevant I/O methods as the point to read parameters"
+
+schedule GROUP CCTK_STARTUP
+{
+} "Run before any grids are constructed."
+
+schedule GROUP CCTK_WRAGH
+{
+} "This timebin is executed when all parameters are known, but before the driver thorn constructs the grid."
+
+schedule GROUP CCTK_PARAMCHECK
+{
+} "This timebin is for thorns to check the validity of parameter combinations."
+
+schedule GROUP CCTK_PREREGRIDINITIAL
+{
+} "This bin is executed to construct the initial grid hierarchy during the INITIAL bin."
+
+schedule GROUP CCTK_POSTREGRIDINITIAL
+{
+} "This bin is executed whenever the grid hierarchy or patch setup has changed during evolution; see CCTK_POSTREGRIDINITIAL."
+
+schedule GROUP CCTK_BASEGRID
+{
+} "This timebin is executed very early after a driver thorn constructs grid."
+
+schedule GROUP CCTK_INITIAL
+{
+} "This is the place to set up any required initial data."
+
+schedule GROUP CCTK_POSTINITIAL
+{
+} "This is the place to modify initial data, or to calculate data that depend on the initial data."
+
+schedule GROUP CCTK_POSTRESTRICTINITIAL
+{
+} "This bin is executed after each restriction operation while initial data are set up; compare CCTK_POSTRESTRICT."
+
+schedule GROUP CCTK_POSTPOSTINITIAL
+{
+} "This is the place to modify initial data, or to calculate data that depend on the initial data."
+
+schedule GROUP CCTK_RECOVER_VARIABLES
+{
+} "Used by thorns with relevant I/O methods as the point to read in all the grid variables when recovering from checkpoint files."
+
+schedule GROUP CCTK_POST_RECOVER_VARIABLES
+{
+} "This timebin exists for scheduling any functions which need to modify grid variables after recovery."
+
+schedule GROUP CCTK_CPINITIAL
+{
+} "Used by thorns with relevant I/O methods as the point to checkpoint initial data if required."
+
+schedule GROUP CCTK_CHECKPOINT
+{
+} "Used by thorns with relevant I/O methods as the point to checkpoint data during the iterative loop when required."
+
+schedule GROUP CCTK_PREREGRID
+{
+} "his bin is executed whenever the grid hierarchy is about to change during evolution; compare CCTK_PREREGRIDINITIAL."
+
+schedule GROUP CCTK_POSTREGRID
+{
+} "This bin is executed whenever the grid hierarchy or patch setup has changed during evolution; see CCTK_POSTREGRIDINITIAL."
+
+schedule GROUP CCTK_PRESTEP
+{
+} "The timebin for scheduling any routines which need to be executed before any routines in the main evolution step."
+
+schedule GROUP CCTK_EVOL
+{
+} "The timebin for the main evolution step."
+
+schedule GROUP CCTK_POSTRESTRICT
+{
+} "This bin is executed after each restriction operation during evolution; compare CCTK_POSTRESTRICTINITIAL."
+
+schedule GROUP CCTK_POSTSTEP
+{
+} "The timebin for scheduling any routines which need to be executed after all the routines in the main evolution step."
+
+schedule GROUP CCTK_ANALYSIS
+{
+} "Routines which perform analysis should be independent of the main evolution loop"
+
+schedule GROUP CCTK_TERMINATE
+{
+} "Called after the main iteration loop when Cactus terminates."
+
+schedule GROUP CCTK_SHUTDOWN
+{
+} "Cactus final shutdown routines, after the grid hierarchy has been destroyed."

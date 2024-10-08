@@ -1,0 +1,4 @@
+$(BINDINGS_DIR)/include/ParGrammar.hh : $(SRCDIR)/pegs/par.peg
+	$(PERL) $(SRCDIR)/make.hh.pl $< $@
+
+Call.cc.o Call.cc.d: $(BINDINGS_DIR)/include/ParGrammar.hh

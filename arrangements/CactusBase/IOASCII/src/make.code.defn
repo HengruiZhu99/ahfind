@@ -1,0 +1,6 @@
+# Main make.code.defn file for thorn IOASCII
+# $Header$
+
+# Source files in this directory
+SRCS = Startup.c ChooseOutput.c Output1D.c Write1D.c Output2D.c Write2D.c     \
+       Output3D.c Write3D.c

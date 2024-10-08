@@ -1,0 +1,29 @@
+# Interface definition for thorn TmunuBase
+
+IMPLEMENTS: TmunuBase
+
+INHERITS: ADMBase StaticConformal
+
+
+
+# These are our grid functions.
+# They contain T_munu, the complete stress energy tensor.
+
+PUBLIC:
+
+INT stress_energy_state TYPE=scalar "State of storage for stress-energy tensor"
+
+REAL stress_energy_scalar TYPE=gf TIMELEVELS=3 TAGS='tensortypealias="Scalar" ProlongationParameter="TmunuBase::prolongation_type"'
+{
+  eTtt
+} "Stress-energy tensor, 3-scalar part T_00"
+
+REAL stress_energy_vector TYPE=gf TIMELEVELS=3 TAGS='tensortypealias="D" ProlongationParameter="TmunuBase::prolongation_type"'
+{
+  eTtx eTty eTtz
+} "Stress-energy tensor, 3-vector part T_0i"
+
+REAL stress_energy_tensor TYPE=gf TIMELEVELS=3 TAGS='tensortypealias="DD_sym" ProlongationParameter="TmunuBase::prolongation_type"'
+{
+  eTxx eTxy eTxz eTyy eTyz eTzz  
+} "Stress-energy tensor, 3-tensor part T_ij"

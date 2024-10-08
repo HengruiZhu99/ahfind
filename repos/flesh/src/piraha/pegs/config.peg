@@ -1,0 +1,29 @@
+# The grammar for configuration.ccl
+skipper = (\\\n|[ \t\r\n]|\#.*)*\b
+s = [ \t]*
+key = (?i:optional(_ifactive|)|provides)
+
+# Optional, Optional_IfActive, or Provides statement
+provopt = {key} {name}({-s}{name})* \{ ({script} |{options} |{lang} |{vname} |{version} )*\}
+
+script = (?i:script)( {pname}|)
+options = (?i:options) ({name} )*
+lang = (?i:lang)( {name}|)
+version = (?i:version) {vname}
+name_with_ver  = {name}( \( {vop} {vname} \)|)
+
+# Requires statement
+requires = (?i:requires)({-s}{thorns}|({-s}{name_with_ver})+)
+thorns = (?i:thorns):({-s}{name})+
+
+# Use negative lookahead to prevent use of keywords as key names
+notkey = (?!(?i:lang|script|provides|requires|optional(_ifactive|)|version|options|thorns)\b)
+name = {-notkey}[A-Za-z][a-zA-Z0-9_]*
+pname = {-notkey}[A-Za-z0-9_./-]+
+
+# Version comparison operation
+# << means less than, >> means greater than
+vop   = (<<|<=|=|>=|>>)
+
+vname = {-notkey}[A-Za-z0-9_-]+
+all = ^ ({provopt} |{requires} )*$

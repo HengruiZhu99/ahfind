@@ -1,0 +1,74 @@
+# The grammar for the schedule.ccl file
+skipper = \b([\ \t\n\r\b]|{-ccomment}|\#[^\n]*|\\[\r\n])*
+
+any = [^]
+name = (?i:[a-zA-Z_][a-zA-Z0-9_]*\b)
+expr = {name}|{quote}|{num}
+# TODO: Should this be a * or a ?
+vname = {name}( :: {name})*( \[ {expr} \]|)
+uname = {name}( :: {name})?
+quote = "(\\{any}|[^"])*"
+ccomment = /\*((?!\*/){-any})*\*/
+num = [+\-]?[0-9]+(\.[0-9]+)?
+string = {name}|{quote}
+term = {num}|{name}( \( ({expr} (, {quote} )*)?\) )?
+par = \b(?i:as|at|in|while|if|before|after|while)\b
+pararg = ({uname}|\( {uname}( ,? {uname} )* \))
+assign = {name} = {num}
+
+boolpar = \( {boolexpr} \)
+args = ({expr}( , {expr})*|)
+fun = {name} \( {args} \)
+boolstar = \* {name}
+boolneg = \! {boolexpr}
+boolterm = (?i:{boolneg}
+         | {boolstar}
+         | {boolpar}
+         | {fun}
+         | {name} )
+         
+boolop = (&&|\|\|)
+boolcmp = (>=|<=|==|!=|<|>)
+boolexpr = {boolterm} ({boolop} {boolexpr} )+
+     | {term} {boolcmp} {term} | {boolterm}
+
+lang = (?i:lang(uage|) : {name})
+group = (?i:group)
+nogroup =
+prepositions = ({preposition} )*
+preposition = {par} {pararg}
+sync = (?i:sync) : {uname}( , {uname}|{-spacing}{uname})*
+spacing = ([ \t]|\\\r?\n)+
+optname = [a-zA-Z0-9-]+
+options = (?i:options?) : {optname}( , {optname}|{-spacing}{optname})*
+triggers = (?i:triggers?) : {vname}( , {vname}|{-spacing}{vname})*
+reads = (?i:reads) : {qrname}( , {qrname}|{-spacing}{qrname})*
+writes = (?i:writes) : {qrname}( , {qrname}|{-spacing}{qrname})*
+invalidates = (?i:invalidates) : {qrname}( , {qrname}|{-spacing}{qrname})*
+qrname = {vname}( \( {region} \)|)
+region = (?i:everywhere|interiorwithboundary|interior|all|in|boundary|scalar)
+tags = (?i:tags) : {assign}( , {assign}|{-spacing}{assign})*
+schedule = (?i:
+  schedule ({group}|{nogroup}) {name} {prepositions} \{
+    ( {storage}
+        | {lang}
+        | {sync}
+        | {options}
+        | {triggers}
+        | {reads}
+        | {writes}
+        | {invalidates}
+        | {tags}
+    )*
+ \} {quote}
+ )
+else = else
+ifbody = {block} ({else} {if}|{else} {block}|)
+if = (?i:
+  if \( {boolexpr} \) {ifbody}
+  )
+storage = (?i:storage: {vname}( , {vname}|{-spacing}{vname})* )
+block = \{ (({statement}|{block}) )* \} | {statement}
+
+statement = ({schedule} |{if} |{storage} )
+sched = ^ ({statement} |{block} )*$

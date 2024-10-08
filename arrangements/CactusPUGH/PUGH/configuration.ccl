@@ -1,0 +1,16 @@
+# Configuration definitions for thorn PUGH
+# $Header$
+
+PROVIDES PUGH
+{
+  SCRIPT
+  LANG
+}
+
+OPTIONAL MPI
+{
+}
+
+OPTIONAL Vectors
+{
+}

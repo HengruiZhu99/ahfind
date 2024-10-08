@@ -1,0 +1,14 @@
+Cactus Code Thorn PUGH
+Author(s)    : Gabrielle Allen
+               Tom Goodale
+               Thomas Radke
+               Matei Ripeanu
+               Paul Walker
+Maintainer(s): Cactus team
+Licence      : LGPL
+--------------------------------------------------------------------------
+
+1. Purpose
+
+This thorn provides a unigrid parallel driver with MPI.
+

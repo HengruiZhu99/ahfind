@@ -1,0 +1,14 @@
+# Interface definition for thorn IOBasic
+# $Header$
+
+implements: IOBasic
+inherits:   IO
+
+real next_info_output_time type=scalar
+real next_scalar_output_time type=scalar
+
+
+CCTK_INT FUNCTION IO_TruncateOutputFiles \
+  (CCTK_POINTER_TO_CONST IN GH)
+
+REQUIRES FUNCTION IO_TruncateOutputFiles

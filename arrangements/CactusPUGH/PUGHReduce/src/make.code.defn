@@ -1,0 +1,8 @@
+# Main make.code.defn file for thorn PUGHReduce
+# $Header$
+
+# Source files in this directory
+SRCS = ReductionAvg.c ReductionCount.c ReductionMax.c ReductionMin.c          \
+       ReductionNorm1.c ReductionNorm2.c ReductionNorm3.c ReductionNorm4.c    \
+       ReductionNormInf.c ReductionSum.c Startup.c Reduction.c ReduceGA.c     \
+       ReduceArraysGlobally.c

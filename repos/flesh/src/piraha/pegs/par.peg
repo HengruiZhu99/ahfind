@@ -1,0 +1,49 @@
+#The grammar for par files
+
+skipper = ([ \t\r\n]|\#.*)*
+# comment
+skipeol = ([ \t\r]|\#.*)*($|\n)
+any = [^]
+stringeol = \n
+stringchar = .
+stringcomment = \#.*
+stringparser = ^({var}|{stringchar})*({stringeol}({stringcomment}|{var}|{any})*)?$
+# Note that / occurs in some par files. It is my
+# feeling that this should require quote marks.
+name = [a-zA-Z][a-zA-Z0-9_]*
+dname = [0-9][a-zA-Z_]{2,}
+inquot = ({var}|\\.|[^\\"])*
+fname = \.?/[-\./0-9a-zA-Z_]+
+quot = "{inquot}"|{fname}
+num = ([0-9]+(\.[0-9]*|)|\.[0-9]+)([edDE][+-]?[0-9]+|)
+env = ENV\{{name}\}
+var = \$({env}|{name}|\{{name}\})
+powexpr = {value}( \*\* {value})?
+mulop = [*/%]
+mexpr = {powexpr}( {mulop} {powexpr})*
+addop = [+-]
+aexpr = {mexpr}( {addop} {mexpr})*
+compop = [<>]=?
+compexpr = {aexpr}( {compop} {aexpr})?
+eqop = [!=]=
+eqexpr = {compexpr}( {eqop} {eqexpr})?
+andexpr = {eqexpr}( && {eqexpr})?
+expr = {andexpr}( \|\| {andexpr})?
+eval = {expr}
+paren = \( {expr} \)
+par = {name} :: {name}( {parindex})?
+func = {name} \( {expr} (, {expr} )*\)
+array = \[ {expr}( , {expr})* \]
+value = {unop}?({par}|{func}|{paren}|{dname}|{num}|{quot}|{name}|{var})
+unop = [-!]
+int = [0-9]+
+index = \[ {int} \]
+parindex = \[ {expr} \]
+active = (?i:ActiveThorns)
+# If the fallback pattern named "syntax" is reached and it matches,
+# it is actually a syntax error.
+syntax = [^\n()]*
+set = ({active} =[ \t]*({quot}|{name})|{par}( {index}|) =[ \t]*({array}|\+?{expr}|{syntax}))
+set_var = \${name} =[ \t]*(\+?{expr}|{syntax})
+desc = !DESC {quot}
+file = ^ ({desc} |{set_var} |{set} |{active} |{syntax})*$

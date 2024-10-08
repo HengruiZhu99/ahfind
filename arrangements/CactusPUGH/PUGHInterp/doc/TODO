@@ -1,0 +1,8 @@
+This file notes possible future extensions and things to fix:
+
+
+Mon Sep  1 13:03:05 CEST 2003
+Ian Hawke suggests that it would be useful for Cauchy-characteristic
+matching codes if the global interpolator could take *time* derivatives.
+For his application we wouldn't need to actually interpolate in time,
+just take time derivatives of grid arrays which have multiple time levels.

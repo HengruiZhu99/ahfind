@@ -1,0 +1,281 @@
+# Parameter definitions for thorn PUGH
+# $Header$
+
+shares: cactus
+USES KEYWORD terminate
+
+USES REAL cctk_initial_time 
+
+USES REAL cctk_final_time 
+
+USES INT cctk_itlast 
+
+USES REAL max_runtime 
+
+USES BOOLEAN terminate_next
+
+############################# Restricted Parameters #########################
+restricted:
+
+BOOLEAN periodic "Periodic boundary conditions"
+{
+} "no"
+
+BOOLEAN periodic_x "Periodic boundary conditions in x-direction"
+{
+} "yes"
+
+BOOLEAN periodic_y "Periodic boundary conditions in y-direction"
+{
+} "yes"
+
+BOOLEAN periodic_z "Periodic boundary conditions in z-direction"
+{
+} "yes"
+
+############################# Private Parameters ############################
+private:
+
+INT global_nx "The size of the grid in the x direction"
+{
+    0:*     :: "Grid of this size distributed across all processors"
+} 10
+
+INT global_ny "The size of the grid in the y direction"
+{
+    0:*     :: "Grid of this size distributed across all processors"
+} 10
+
+INT global_nz "The size of the grid in the z direction"
+{
+    0:*     :: "Grid of this size distributed across all processors"
+} 10
+
+INT global_nsize "The size of the grid in each spatial direction"
+{
+    -1:*     :: "Grid of this size in each dir distributed across all processors"
+} -1
+
+INT ghost_size_x "The width of the ghost zone in the x direction"
+{
+    0:*     :: "Must be a positive integer"
+} 1
+
+INT ghost_size_y "The width of the ghost zone in the y direction"
+{
+    0:*     :: "Must be a positive integer"
+} 1
+
+INT ghost_size_z "The width of the ghost zone in the z direction"
+{
+    0:*     :: "Must be a positive integer"
+} 1
+
+INT ghost_size "The width of the ghost zone in each direction"
+{
+    -1:*     :: "Any positive number to override the ghost_size_[xyz] parameters"
+} -1
+
+KEYWORD info "Provide additional information about what PUGH is doing"
+{
+  "none" :: "No extra information"
+  "load" :: "Load on each processor"
+} "none"
+
+INT local_nx "The size of the grid in the x direction"
+{
+    -1:*     :: "Grid of this size on each processor"
+} -1
+
+INT local_ny "The size of the grid in the y direction"
+{
+    -1:*     :: "Grid of this size on each processor"
+} -1
+
+INT local_nz "The size of the grid in the z direction"
+{
+    -1:*     :: "Grid of this size on each processor"
+} -1
+
+INT local_nsize "The size of the grid in each spatial direction"
+{
+    -1:*     :: "Grid of this size in each dir on each processor"
+} -1
+
+BOOLEAN local_size_includes_ghosts "Does the local grid size include the ghost zones?"
+{
+} "yes"
+
+BOOLEAN enable_all_storage "Enable storage for all GFs?"
+{
+} "no"
+
+# Processor topology
+
+# Thomas Radke, 19 December 2005:
+# don't make physical2logical and processor_topology restricted parameters
+# so that PUGH and Carpet can still be compiled together
+#restricted:
+
+KEYWORD physical2logical "Physical process to logical process mapping method to use" STEERABLE = RECOVER
+{
+  "direct"  :: "Maps MPI IDs directly to IJKs"
+  "example" :: "Maps MPI IDs directly to IJKs using a lookup table"
+} "direct"
+
+KEYWORD processor_topology "How to determine the processor topology" STEERABLE = RECOVER
+{
+  "manual"        :: "Specified by proc_top_nx etc"
+  "automatic"     :: "Automatically generated"
+  "automatic_old" :: "Automatically generated (old method)"
+} "automatic"
+
+private:
+
+INT processor_topology_1d_x "Number of processors in X direction" STEERABLE = RECOVER
+{
+  0:*  :: "See proc_topology"
+} 0
+
+INT processor_topology_2d_x "Number of processors in X direction" STEERABLE = RECOVER
+{
+  0:*  :: "See proc_topology"
+} 0
+
+INT processor_topology_2d_y "Number of processors in Y direction" STEERABLE = RECOVER
+{
+  0:*  :: "See proc_topology"
+} 0
+
+INT processor_topology_3d_x "Number of processors in X direction" STEERABLE = RECOVER
+{
+  0:*  :: "See proc_topology"
+} 0
+
+INT processor_topology_3d_y "Number of processors in Y direction" STEERABLE = RECOVER
+{
+  0:*  :: "See proc_topology"
+} 0
+
+INT processor_topology_3d_z "Number of processors in Z direction" STEERABLE = RECOVER
+{
+  0:*  :: "See proc_topology"
+} 0
+
+
+KEYWORD initialize_memory "How to initialize memory for grid variables at allocation time" STEERABLE = ALWAYS
+{
+  "none" :: "Do not initialize storage for allocated grid variables (default)"
+  "zero" :: "Zero out all elements of all allocated grid variables"
+  "NaN"  :: "Set all elements of allocated floating point grid variables to Not-a-Number values"
+} "none"
+
+
+KEYWORD partition "Is the partition manual"
+{
+ "automatic"    :: "even"
+ "manual"       :: "specified by partition_XYZ .."
+} "automatic"
+
+STRING partition_1d_x "Tells how to partition on direction X"
+{
+.* :: "A regex which matches anything"
+} ""
+
+STRING partition_2d_x "Tells how to partition on direction X"
+{
+.* :: "A regex which matches anything"
+} ""
+
+STRING partition_2d_y "Tells how to partition on direction y"
+{
+.* :: "A regex which matches anything"
+} ""
+
+STRING partition_3d_x "Tells how to partition on direction X"
+{
+.* :: "A regex which matches anything"
+} ""
+
+STRING partition_3d_y "Tells how to partition on direction y"
+{
+.* :: "A regex which matches anything"
+} ""
+
+STRING partition_3d_z "Tells how to partition on direction z"
+{
+.* :: "A regex which matches anything"
+} ""
+
+KEYWORD storage_verbose "Report on memory assignment" STEERABLE = ALWAYS
+{
+  "yes"    :: "Standard storage information"
+  "report" :: "Provide a report of storage every storage_report_every iterations and at termination"
+  "no"     :: "Provide no information"
+} "no"
+
+INT storage_report_every "How often to provide a report on storage information" STEERABLE = ALWAYS
+{
+  0:0 :: "Never report"
+  1:* :: "Report at intervals"
+} 0
+
+BOOLEAN timer_output  "Print time spent in communication"
+{
+} "no"
+
+INT cacheline_mult "Multiplier for cacheline number"
+{
+  0:*  ::  "Any positive number"
+} 4001
+
+# Provide ability to switch of overloading of individual driver functions
+
+BOOLEAN overloadevolve "Overload Evolve driver function"
+{
+} "yes"
+BOOLEAN overloadsyncgroup "Overload SyncGroup driver function"
+{
+} "no"
+BOOLEAN overloadsyncgroupsbydiri "Overload SyncGroupsByDirI driver function"
+{
+} "yes"
+BOOLEAN overloadenablegroupstorage "Overload EnableGroupStorage driver function"
+{
+} "yes"
+BOOLEAN overloaddisablegroupstorage "Overload DisableGroupStorage driver function"
+{
+} "yes"
+BOOLEAN overloadenablegroupcomm "Overload EnableGroupComm driver function"
+{
+} "yes"
+BOOLEAN overloaddisablegroupcomm "Overload DisableGroupComm driver function"
+{
+} "yes"
+BOOLEAN overloadbarrier "Overload Barrier driver function"
+{
+} "yes"
+BOOLEAN overloadparallelinit "Overload ParallelInit driver function"
+{
+} "yes"
+BOOLEAN overloadexit "Overload Exit driver function"
+{
+} "yes"
+BOOLEAN overloadabort "Overload Abort driver function"
+{
+} "yes"
+BOOLEAN overloadmyproc "Overload MyProc driver function"
+{
+} "yes"
+BOOLEAN overloadnprocs "Overload nProcs driver function"
+{
+} "yes"
+BOOLEAN overloadarraygroupsizeb "Overload ArrayGroupSizeB driver function"
+{
+} "yes"
+BOOLEAN overloadquerygroupstorageb "Overload QueryGroupStorageB driver function"
+{
+} "yes"
+BOOLEAN overloadgroupdynamicdata "Overload GroupDynamicData driver function"
+{
+} "yes"

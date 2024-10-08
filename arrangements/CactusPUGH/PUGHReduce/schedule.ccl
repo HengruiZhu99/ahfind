@@ -1,0 +1,7 @@
+# Schedule definitions for thorn PUGHReduce
+# $Header$
+
+schedule PUGHReduce_Startup at STARTUP
+{
+  LANG:C
+} "Startup routine"

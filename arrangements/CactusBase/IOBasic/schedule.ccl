@@ -1,0 +1,22 @@
+# Schedule definitions for thorn IOBasic
+# $Header$
+
+########################################################################
+### register IOBasic routines
+########################################################################
+schedule IOBasic_Startup at STARTUP after IOUtil_Startup
+{
+  LANG:C
+} "Startup routine"
+
+
+########################################################################
+### register IOBasic routines
+########################################################################
+storage: next_info_output_time next_scalar_output_time
+schedule IOBasic_Init at INITIAL
+{
+  LANG:C
+  WRITES: IOBasic::next_info_output_time(everywhere)
+  WRITES: IOBasic::next_scalar_output_time(everywhere)
+} "Initialisation routine"

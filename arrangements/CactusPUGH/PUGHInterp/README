@@ -1,0 +1,21 @@
+Cactus Code Thorn PUGHInterp
+Author(s)    : Paul Walker
+               Thomas Radke
+Maintainer(s): Cactus team
+Licence      : LGPL
+--------------------------------------------------------------------------
+
+1. Purpose
+
+   This thorn implements the Cactus flesh interpolation API routine
+   CCTK_InterpGridArrays() which provides interpolation of CCTK grid
+   arrays at arbitrary points.
+
+
+2. Additional Information
+
+   More detailed information on thorn PUGHInterp is given in chapter
+   about PUGHInterp in the Cactus ThornGuide (see doc/documentation.tex).
+
+   For information on how to invoke interpolation operators via the
+   general flesh interpolation API please refer to the flesh documentation.

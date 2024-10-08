@@ -1,0 +1,24 @@
+# $Header$
+
+SRCS=\
+CactusTimers.c\
+File.c\
+ParseFile.c\
+RegisterKeyedFunction.c\
+StoreKeyedData.c\
+StoreNamedData.c\
+Misc.c\
+StoreHandledData.c\
+SKBinTree.c\
+Hash.c\
+Malloc.c\
+Math.c\
+String.c\
+StringList.c\
+Table.c\
+Time.c\
+Network.c
+
+ifneq ($(lastword $(subst /, ,$(F90))),no-fortran-compiler)
+SRCS += PointerTo.F90
+endif

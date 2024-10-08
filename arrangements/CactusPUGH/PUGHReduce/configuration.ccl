@@ -1,0 +1,8 @@
+# Configuration definitions for thorn PUGHReduce
+# $Header$
+
+REQUIRES PUGH
+
+OPTIONAL MPI
+{
+}

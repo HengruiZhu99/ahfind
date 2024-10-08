@@ -1,0 +1,13 @@
+# With "implements", we give our thorn its unique name.
+implements: readBHaHdata
+
+# By "inheriting" other thorns, we tell the Toolkit that we
+#   will rely on variables/function that exist within those
+#   functions.
+inherits:   ADMBase Boundary Grid
+
+# Needed functions and #include's:
+USES INCLUDE: Symmetry.h
+USES INCLUDE: Boundary.h
+
+# Don't need to register any gridfunctions; those come from ADMBase

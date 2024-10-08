@@ -1,0 +1,4 @@
+# Main make.code.defn file for thorn BaikalVacuum
+
+# Source files in this directory that need compiled:
+SRCS = read_BHaH_ADM_data_from_file.c output_processed_data_to_file.c

@@ -1,0 +1,10 @@
+# Interface definition for thorn pugh
+# $Header$
+
+implements: Driver
+
+INCLUDE HEADER: Register.h in pugh_Register.h
+
+USES INCLUDE: pugh_Register.h
+
+USES INCLUDE: vectors.h

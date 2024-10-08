@@ -1,0 +1,11 @@
+Cactus Code Thorn PUGHReduce
+Author(s)    : Gabrielle Allen
+               Tom Goodale
+               Thomas Radke
+Maintainer(s): Cactus team
+Licence      : LGPL
+--------------------------------------------------------------------------
+
+1. Purpose
+
+Standard reduction operators which use PUGH for communications

@@ -1,0 +1,7 @@
+# Schedule definitions for thorn LocalReduce
+# $Header$
+
+schedule LocalReduce_Startup at STARTUP
+{
+  LANG:C
+} "Startup routine"

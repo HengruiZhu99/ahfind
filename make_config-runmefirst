@@ -1,0 +1,5 @@
+mkdir -p configs
+yes | make einsteintoolkitanalysis-config options=ubuntu-gcc.cfg
+
+cp ThornList configs/einsteintoolkitanalysis
+

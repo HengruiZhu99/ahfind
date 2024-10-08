@@ -1,0 +1,118 @@
+# Parameter definitions for thorn IOBasic
+# $Header$
+
+
+#############################################################################
+### declare IOBasic parameters
+#############################################################################
+private:
+
+##########################
+# Directory to output to
+##########################
+STRING out_dir "Output directory for IOBasic's scalar files, overrides IO::out_dir" STEERABLE = RECOVER
+{
+  ".+" :: "A valid directory name"
+  "^$" :: "An empty string to choose the default from IO::out_dir"
+} ""
+
+##########################
+# What variables to output
+##########################
+STRING outInfo_vars "Variables to output as Info to screen" STEERABLE = ALWAYS
+{
+  ".+" :: "Space-separated list of fully qualified variable/group names"
+  "^$" :: "An empty string to output nothing"
+} ""
+STRING outScalar_vars "Variables to output into files" STEERABLE = ALWAYS
+{
+  ".+" :: "Space-separated list of fully qualified variable/group names"
+  "^$" :: "An empty string to output nothing"
+} ""
+
+
+##########################
+# What reductions to output
+##########################
+STRING outInfo_reductions "List of reductions to output as Info to screen" STEERABLE = ALWAYS
+{
+  ".+" :: "Space-separated list of reduction operators"
+} "minimum maximum"
+STRING outScalar_reductions "List of reductions to output into files" STEERABLE = ALWAYS
+{
+  ".+" :: "Space-separated list of reduction operators"
+} "minimum maximum norm1 norm2"
+
+
+########################
+# How often to do output
+########################
+KEYWORD outInfo_criterion "Criterion to select Info output intervals"
+{
+  "never"     :: "Never output"
+  "iteration" :: "Output every so many iterations"
+  "time"      :: "Output every that much coordinate time"
+} "iteration"
+INT outInfo_every "How often to do Info output" STEERABLE = ALWAYS
+{
+   1:* :: "Every so many iterations"
+   0:  :: "Disable Info output"
+  -1:  :: "Default to IO::out_every"
+} -1
+REAL outInfo_dt "How often to do Info output" STEERABLE = ALWAYS
+{
+  (0:* :: "In intervals of that much coordinate time"
+   0   :: "As often as possible"
+  -1   :: "Disable output"
+  -2   :: "Default to IO::out_dt"
+} -2
+
+KEYWORD outScalar_criterion "Criterion to select Scalar output intervals"
+{
+  "never"     :: "Never output"
+  "iteration" :: "Output every so many iterations"
+  "time"      :: "Output every that much coordinate time"
+} "iteration"
+INT outScalar_every "How often to do Scalar output" STEERABLE = ALWAYS
+{
+   1:* :: "Every so many iterations"
+   0:  :: "Disable Scalar output"
+  -1:  :: "Default to IO::out_every"
+} -1
+REAL outScalar_dt "How often to do Scalar output" STEERABLE = ALWAYS
+{
+  (0:* :: "In intervals of that much coordinate time"
+   0   :: "As often as possible"
+  -1   :: "Disable output"
+  -2   :: "Default to IO::out_dt"
+} -2
+
+
+#####################
+# Scalar output style
+#####################
+KEYWORD outScalar_style "Which style for Scalar output" STEERABLE = RECOVER
+{
+  "gnuplot" :: "1D output readable by gnuplot"
+  "xgraph"  :: "1D output readable by xgraph"
+} "xgraph"
+
+STRING out_format "Which format for Scalar floating-point number output" STEERABLE = ALWAYS
+{
+  "^(\.[1]?[0-9])?[EGefg]$" :: "output with given precision in exponential / floating point notation"
+} ".13f"
+
+
+#############################################################################
+### import IOUtil parameters
+#############################################################################
+shares: IO
+
+USES STRING out_dir AS io_out_dir
+USES KEYWORD out_criterion
+USES INT out_every
+USES REAL out_dt
+USES KEYWORD verbose
+USES KEYWORD out_fileinfo
+USES BOOLEAN new_filename_scheme
+USES BOOLEAN strict_io_parameter_check

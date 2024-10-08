@@ -1,0 +1,16 @@
+# First allocate storage for one timelevel of ADMBase gridfunctions, which is the
+#    bare minimum needed by NRPy+. If another thorn (e.g., ADMBase itself) requests
+#    more timelevels of storage, Cactus automatically allocates the maximum requested.
+STORAGE: ADMBase::metric[1], ADMBase::curv[1], ADMBase::lapse[1], ADMBase::shift[1]
+
+schedule read_BHaH_ADM_data_from_file at CCTK_INITIAL after ADMBase_PostInitial
+{
+  LANG: C
+  OPTIONS: Local
+} "Read ADM data from BHaH data file"
+
+schedule output_processed_data_to_file at CCTK_ANALYSIS after QuasiLocalMeasures::qlm_calculate
+{
+  LANG: C
+  OPTIONS: Local
+} "output QLM and AHFD data to file"

@@ -1,0 +1,8 @@
+# Configuration definitions for thorn BLAS
+
+PROVIDES BLAS
+{
+  SCRIPT configure.sh
+  LANG bash
+  OPTIONS BLAS_DIR BLAS_INSTALL_DIR BLAS_LIBS
+}

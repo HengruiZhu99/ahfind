@@ -1,0 +1,11 @@
+Cactus Code Thorn LocalReduce
+Author(s)    : Ravi Paruchuri
+               Tom Goodale
+               Yaakoub El Khamra
+Maintainer(s): Cactus team
+Licence      : LGPL
+--------------------------------------------------------------------------
+
+1. Purpose
+
+Local array reduction implementation, using the new local reduction API. New features added, please refer to the thorn documentation for details and to the TestLocalReduce thorn for examples of usage. 
