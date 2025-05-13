@@ -420,24 +420,41 @@ subroutine qlm_analyse (CCTK_ARGUMENTS, hn)
         !     - h_j0,i + h_ij,0                  ] n_i r^2 dOmega
         !
         ! P_ll^j = (1/8 pi) int_S(r) [K_ij - K delta_ij] n_i r^2 dOmega
-        do a=1,3
-           w_mom(a) = 0
-           do b=1,3
-              w_mom(a) = w_mom(a) &
-                   + (- dh4(b,b,0) + dh4(b,0,b)) * ss(a) &
-                   + (- dh4(a,0,b) + dh4(b,a,0)) * ss(b)
-           end do
-        end do
-        qlm_w_momentum_x(hn) = qlm_w_momentum_x(hn) &
-             & + w_mom(1) / (-16*pi) &
-             &   * sqrt(dtq) * weights(i)
-        qlm_w_momentum_y(hn) = qlm_w_momentum_y(hn) &
-             & + w_mom(2) / (-16*pi) &
-             &   * sqrt(dtq) * weights(i)
-        qlm_w_momentum_z(hn) = qlm_w_momentum_z(hn) &
-             & + w_mom(3) / (-16*pi) &
-             &   * sqrt(dtq) * weights(i)
+        !do a=1,3
+        !   w_mom(a) = 0
+        !   do b=1,3
+        !      w_mom(a) = w_mom(a) &
+        !           + (- dh4(b,b,0) + dh4(b,0,b)) * ss(a) &
+        !           + (- dh4(a,0,b) + dh4(b,a,0)) * ss(b)
+        !   end do
+        !end do
+        !qlm_w_momentum_x(hn) = qlm_w_momentum_x(hn) &
+        !     & + w_mom(1) / (-16*pi) &
+        !     &   * sqrt(dtq) * weights(i)
+        !qlm_w_momentum_y(hn) = qlm_w_momentum_y(hn) &
+        !     & + w_mom(2) / (-16*pi) &
+        !     &   * sqrt(dtq) * weights(i)
+        !qlm_w_momentum_z(hn) = qlm_w_momentum_z(hn) &
+        !     & + w_mom(3) / (-16*pi) &
+        !     &   * sqrt(dtq) * weights(i)
 
+        ! Quasi‑local linear momentum per Krishnan et al. (arXiv:0707.0876)
+        !     P_ab = K_ab - K γ_ab
+        !     For basis ξ^a = δ^a_i, P_i = ∮ (K_{i j} - K γ_{i j}) s^j dA
+        do a = 1,3
+            w_mom(a) = 0
+            do b = 1,3
+                w_mom(a) = w_mom(a) + ( kk(a,b) - trk * gg(a,b) ) * ss(b)
+            end do
+        end do
+
+        ! Now accumulate into your horizon‐integral exactly as before:
+        qlm_w_momentum_x(hn) = qlm_w_momentum_x(hn) &
+            + w_mom(1)/(8*pi) * sqrt(dtq) * weights(i)
+        qlm_w_momentum_y(hn) = qlm_w_momentum_y(hn) &
+            + w_mom(2)/(8*pi) * sqrt(dtq) * weights(i)
+        qlm_w_momentum_z(hn) = qlm_w_momentum_z(hn) &
+            + w_mom(3)/(8*pi) * sqrt(dtq) * weights(i)
         ! Weinberg angular momentum
         ! J_ll^jk = (-1/16 pi) int_S(r)
         !    [- x_j h_0k,i + x_k h_0j,i
